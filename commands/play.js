@@ -10,10 +10,12 @@ module.exports = {
     var musica = args[0];
     if (musica.split('https://youtu.be/')) {
       musica = musica;
-    }
-      const video3 = youtube.searchVideos("jovem dex").then(function(video) {
+    } else {
+      const video3 = youtube.searchVideos(args.slice(0).join("")).then(function(video) {
       console.log(video)
+      musica = `https://youtu.be/${video.id}` 
       })
+    }
       
     
 

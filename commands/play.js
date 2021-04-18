@@ -1,6 +1,7 @@
 const Discord = require('discord.js');
 const ytdl = require("discord-ytdl-core");
-const yts = require('yt-search');
+const Youtube = require('discord-youtube-api');
+const youtube = new Youtube('AIzaSyBku-b9N9VNo2nK0ViyHXZ3ZpqtrKCYHtQ');
 
 module.exports = {
   name: 'play',
@@ -10,8 +11,11 @@ module.exports = {
     if (musica.split('https://youtu.be/')) {
       musica = musica;
     }
-    const { videos } =  yts('jovem dex tapa');
-    console.log(videos)
+      const video3 = youtube.searchVideos("jovem dex").then(function(video) {
+      console.log(video)
+      })
+      
+    
 
 
     if (!message.member.voice.channel) return message.channel.send("You're not in a voice channel?");

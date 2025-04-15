@@ -48,7 +48,7 @@ Este projeto é experimental e aberto a sugestões. Sinta-se à vontade para abr
 
 ---
 
-Criado por **Você** e **ChatGPT (OpenAI)**.
+Criado por **Thiago Maciel** e **ChatGPT (OpenAI)**.
 
 ## Visão: Onde Queremos Chegar
 

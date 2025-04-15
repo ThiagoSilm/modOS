@@ -1,0 +1,7 @@
+
+{
+    "progress": [
+        { "module": "audioPlayer", "triggered": true },
+        { "module": "videoPlayer", "triggered": false }
+    ]
+}

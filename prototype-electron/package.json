@@ -1,0 +1,13 @@
+{
+  "name": "modos",
+  "version": "1.0.0",
+  "description": "Protótipo visual do sistema modular modOS",
+  "main": "main.js",
+  "scripts": {
+    "start": "electron ."
+  },
+  "dependencies": {
+    "adm-zip": "^0.5.9",
+    "electron": "^29.0.0"
+  }
+}

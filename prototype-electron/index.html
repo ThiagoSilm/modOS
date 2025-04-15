@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html>
+<head><title>modOS</title></head>
+<body>
+  <h1>modOS - Sistema Modular</h1>
+  <button onclick="load('player')">Abrir Player de Música</button>
+  <iframe id="moduleFrame" style="width:100%; height:500px; border:none;"></iframe>
+  <script>
+    async function load(name) {
+      const path = await window.modOS.loadModule(name);
+      document.getElementById('moduleFrame').src = path;
+    }
+  </script>
+</body>
+</html>

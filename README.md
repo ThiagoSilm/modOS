@@ -28,4 +28,4 @@ Grandes empresas como **Microsoft**, **Google**, **Apple** e fabricantes de hard
 
 ## Criado por
 
-**[Seu Nome ou Nickname]** e **ChatGPT (OpenAI)**
+ThiagoSilm e **ChatGPT (OpenAI)**

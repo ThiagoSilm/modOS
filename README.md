@@ -13,7 +13,7 @@ O sistema é composto por dois elementos principais:
 1. **Gerenciador**: carrega, executa e descarta módulos conforme a necessidade.
 2. **Módulos Compactados**: cada funcionalidade é um módulo `.zip`, carregado sob demanda.
 
-![modOS Diagram](https://raw.githubusercontent.com/ThiagoSilm/modOS/refs/heads/main/diagrama.png?token=GHSAT0AAAAAADCHXWXDZTLSDKLBE7GEX2LIZ75Z3HA)
+![https://raw.githubusercontent.com/ThiagoSilm/modOS/refs/heads/main/diagrama.png?token=GHSAT0AAAAAADCHXWXDZTLSDKLBE7GEX2LIZ75Z3HA)
 
 > *Imagine um sistema onde só o que você está usando ocupa memória.*
 

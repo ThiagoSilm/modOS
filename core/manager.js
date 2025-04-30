@@ -1,29 +1,58 @@
-const fs = require('fs');
-const path = require('path');
-const AdmZip = require('adm-zip');
+// manager.js const fs = require('fs'); const path = require('path'); const AdmZip = require('adm-zip');
 
-// Função para gerenciar e carregar módulos
-function loadModule(zipPath, moduleName) {
-    const extractPath = path.join(__dirname, 'modules', moduleName);
-    if (fs.existsSync(extractPath)) {
-        console.log(`Módulo ${moduleName} já está carregado.`);
-        return;
-    }
-    const zip = new AdmZip(zipPath);
-    zip.extractAllTo(extractPath, true);
-    console.log(`Módulo ${moduleName} carregado.`);
+// Estado global de módulos const loadedModules = new Map();
 
-    // Simula execução do módulo
-    const moduleFile = path.join(extractPath, 'index.js');
-    if (fs.existsSync(moduleFile)) {
-        require(moduleFile)();
-    }
+// Carrega e executa um módulo de forma isolada function loadModule(zipPath, moduleName) { const extractPath = path.join(__dirname, 'modules', moduleName);
 
-    // Após execução, remove o módulo da memória (simulado)
-    setTimeout(() => {
-        fs.rmSync(extractPath, { recursive: true, force: true });
-        console.log(`Módulo ${moduleName} descarregado.`);
-    }, 3000); // Simulação de 3 segundos
+if (loadedModules.has(moduleName)) {
+    console.log(`[SKIP] Módulo '${moduleName}' já está em execução.`);
+    return;
 }
 
-module.exports = { loadModule };
+const zip = new AdmZip(zipPath);
+zip.extractAllTo(extractPath, true);
+console.log(`[LOAD] Módulo '${moduleName}' carregado em memória.`);
+
+const moduleFile = path.join(extractPath, 'index.js');
+if (fs.existsSync(moduleFile)) {
+    try {
+        const instance = require(moduleFile);
+        if (typeof instance === 'function') {
+            instance();
+        }
+    } catch (err) {
+        console.error(`[ERROR] Erro ao executar o módulo '${moduleName}':`, err);
+    }
+}
+
+loadedModules.set(moduleName, {
+    path: extractPath,
+    timestamp: Date.now()
+});
+
+}
+
+// Descarrega módulo function unloadModule(moduleName) { const moduleInfo = loadedModules.get(moduleName); if (!moduleInfo) return;
+
+fs.rmSync(moduleInfo.path, { recursive: true, force: true });
+loadedModules.delete(moduleName);
+console.log(`[UNLOAD] Módulo '${moduleName}' descarregado.`);
+
+}
+
+// Ciclo de verificação e descarregamento automático setInterval(() => { const now = Date.now(); for (const [name, data] of loadedModules.entries()) { if (now - data.timestamp > 5000) { // descarrega após 5s ocioso unloadModule(name); } } }, 2000);
+
+// Inicializador function run() { const zipsPath = path.join(__dirname, 'zips'); const files = fs.readdirSync(zipsPath).filter(f => f.endsWith('.zip'));
+
+for (const file of files) {
+    const moduleName = path.basename(file, '.zip');
+    const fullPath = path.join(zipsPath, file);
+    loadModule(fullPath, moduleName);
+}
+
+}
+
+run();
+
+module.exports = { loadModule, unloadModule };
+
